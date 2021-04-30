@@ -1,18 +1,20 @@
 import math
-from collections import Counter, namedtuple, defaultdict
+from collections import defaultdict
 from dataclasses import dataclass
 from pprint import pprint
-from typing import Any
+from MaterialCalculator import MatInfo
+# from typing import Any
 
 from EveDB import db
 from MaterialCalculator import modified_mats, me_mod
+
 
 # holds
 @dataclass
 class ParentMat:
     # change parent str to parent int for mat id
-    parent_name: Any
-    parent_id: Any
+    parent_name: str
+    parent_id: int
     quantity: int
     owned: int = 10
     used: int = 2
@@ -21,17 +23,23 @@ class ParentMat:
         return math.ceil(self.quantity / self.used)
 
 
+# TODO: convert moon to tier1, tier2, etc. to allow for t3 production
+
 # Ask user runs per comp bpo first, then store that in an object and use for runs
-class T2Decomposition:
+class Reactions:
     def __init__(self, materials):
+        # pass the materials in
         self.comps = {}
         self.adv_moon_mat = None
+        self.processed_moon_mat = None
+        self.moon_goo = None
 
         # create objects for comp BPOs
-        for comp_id, comp_quantity in materials.items():
-            used = 3
-            self.comps[comp_id] = ParentMat(db.get_name(comp_id), comp_id, comp_quantity, used=used)
-        # self.print_adv_moon()
+        for comp_name, comp_info in materials.items():
+            pass
+            # print(comp_name, comp_quantity)
+            used = 1
+            self.comps[db.get_id(comp_name)] = ParentMat(comp_name, db.get_id(comp_name), comp_info.quantity, used=used)
 
         self.fill_adv()
 
@@ -56,5 +64,3 @@ class T2Decomposition:
         print(f"\n{'Name':<40} {'Quantity':<15} {'Used':<15} {'Runs per':<10}")
         for i in self.comps.values():
             print(f"{i.parent_name:<40} {i.quantity:<15} {i.used:<15} {i.runs_per():<10}")
-
-

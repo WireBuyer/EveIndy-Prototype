@@ -19,6 +19,22 @@ class EveDB:
 
         return data[0]
 
+    def get_print(self, item_id):
+        self.cursor.execute(f"SELECT typeName FROM invtypes WHERE typeID={item_id}")
+        data = self.cursor.fetchone()
+
+        return data[0]
+
+    def get_reactions(self, item_id):
+        query = f"SELECT r.typeName AS input_name, l.materialTypeID AS input_id, l.quantity " \
+                f"FROM industryactivitymaterials l INNER JOIN invtypes r ON l.materialTypeID = r.typeID " \
+                f"WHERE l.activityID = 11 AND l.typeID = {item_id}"
+
+        self.cursor.execute(query)
+        data = self.cursor.fetchall()
+
+        return data
+
     def get_id(self, item_name):
         self.cursor.execute(f"SELECT typeID FROM invtypes WHERE typeName=\"{str(item_name)}\"")
 
@@ -27,7 +43,7 @@ class EveDB:
         return data[0]
 
     def get_mats2(self, item):
-        query = f"SELECT materialTypeID AS mat_id, typeName AS mat_name, groupID AS group_id, quantity AS mat_quantity " \
+        query = f"SELECT materialTypeID AS mat_id, typeName AS name, groupID AS group_id, quantity AS quantity " \
                 f"FROM eve.industryactivitymaterials l JOIN eve.invtypes r " \
                 f"WHERE l.materialTypeID=r.typeID AND activityID=1 AND l.typeID={item} " \
                 f"ORDER BY materialTypeID "
