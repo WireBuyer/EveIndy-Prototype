@@ -23,15 +23,15 @@ start = time.process_time()
 import tracemalloc
 tracemalloc.start()
 mat_calc = MaterialCalculator()
-
-# add chosen items to the list
+#
+# # add chosen items to the list
 bp = Blueprint(name="Paladin Blueprint", runs=1, copies=1, me=me_mod(4), te=0)
 mat_calc.add_bp(bp)
 bp = Blueprint(name="Retribution Blueprint", runs=3, copies=7, me=me_mod(3), te=0)
 mat_calc.add_bp(bp)
-bp = Blueprint(name="Heretic Blueprint", runs=3, copies=2, me=me_mod(3), te=0)
-mat_calc.add_bp(bp)
-mat_calc.remove_bp(2)
+# bp = Blueprint(name="Heretic Blueprint", runs=3, copies=2, me=me_mod(3), te=0)
+# mat_calc.add_bp(bp)
+# mat_calc.remove_bp(2)
 
 # mat_calc.print_mats()
 
@@ -45,10 +45,12 @@ for mat in mat_calc.mats.values():
     if mat.group_id in comp_filter:
         t2comps[mat.name] = mat
 
-print("printing for: " + db.get_name(46207))
-pprint(db.get_reactions(46207))
+to_print = "Fermionic Condensates"
+print(f"printing for: {to_print}")
+pprint(db.get_reactions(db.get_print(db.get_id(to_print))[1]))
 
-# t2decomp = Reactions(t2comps)
+t2decomp = Reactions(t2comps)
+t2decomp.fill_processed()
 # print("\nNEW VALUES\n")
 # t2decomp.change_adv_moon(11539, 7)
 

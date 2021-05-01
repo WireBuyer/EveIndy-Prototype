@@ -4,7 +4,7 @@ import mysql.connector
 # TODO: CHOOSE industryactivitymaterials FOR A BETTER QUERY
 class EveDB:
     def __init__(self):
-        self.eve_db = mysql.connector.connect(user='root', password='root', host='localhost', database="eve")
+        self.eve_db = mysql.connector.connect(user='root', password='root', host='localhost', database="evetest")
         self.cursor = self.eve_db.cursor(named_tuple=True)
 
     def get_item_info(self, name):
@@ -19,11 +19,15 @@ class EveDB:
 
         return data[0]
 
-    def get_print(self, item_id):
-        self.cursor.execute(f"SELECT typeName FROM invtypes WHERE typeID={item_id}")
+    def get_print(self, item_id, activity_id=11):
+        query = f"SELECT r.typeName AS print_name, l.typeID AS print_id,  l.quantity AS output_quantity " \
+                f"FROM industryactivityproducts l INNER JOIN invtypes r ON l.typeID = r.typeID " \
+                f"WHERE l.activityID = {activity_id} AND r.published = 1 AND l.productTypeID = {item_id}"
+
+        self.cursor.execute(query)
         data = self.cursor.fetchone()
 
-        return data[0]
+        return data
 
     def get_reactions(self, item_id):
         query = f"SELECT r.typeName AS input_name, l.materialTypeID AS input_id, l.quantity " \
