@@ -35,24 +35,50 @@ mat_calc.add_bp(bp)
 
 # mat_calc.print_mats()
 
-
-# pprint(mat_calc.selection[1].mats)
 # pprint(mat_calc.mats)
 
-t2comps = defaultdict(int)
+t2comps = []
 comp_filter = [334]
 for mat in mat_calc.mats.values():
     if mat.group_id in comp_filter:
-        t2comps[mat.name] = mat
+        # can change this to loop over mats and pass each single one to Reactions later
+        # avoids making this secondary list that will just be looped over anyway
+        t2comps.append(mat)
 
-to_print = "Fermionic Condensates"
-print(f"printing for: {to_print}")
-pprint(db.get_reactions(db.get_print(db.get_id(to_print))[1]))
+# pprint(t2comps)
 
-t2decomp = Reactions(t2comps)
-t2decomp.fill_processed()
-# print("\nNEW VALUES\n")
+reactions = Reactions()
+reactions.set_comps(t2comps)
+reactions.change_comps(11543, 2)
+reactions.fill_adv()
+# reactions.after()
+# pprint(reactions.comps)
+# reactions.fill_processed
+# reactions.change_processed_moon(46208, 2)
+# reactions.print_comps()
+
+
+
+
+
+
+
+
+
+# pprint(reactions.processed_moon_mat[46208])
 # t2decomp.change_adv_moon(11539, 7)
+
+
+
+
+
+
+
+
+
+
+
+
 
 # print(f"time taken: {time.process_time() - start}")
 # current, peak = tracemalloc.get_traced_memory()

@@ -32,7 +32,6 @@ class MaterialCalculator:
         # MatInfo = namedtuple('MatInfo', ['mat_id', 'mat_name', 'group_id', 'mat_quantity'])
         self.selection = []
         # self.mats = defaultdict(int)
-        # change mats2 to mats
         self.mats = {}
 
     def add_bp(self, bp):

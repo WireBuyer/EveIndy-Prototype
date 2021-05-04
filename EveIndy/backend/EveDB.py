@@ -1,7 +1,7 @@
 import mysql.connector
 
 
-# TODO: CHOOSE industryactivitymaterials FOR A BETTER QUERY
+# TODO: CHOOSE industryactivitymaterials FOR A BETTER QUERY, remove index from invtypes (typename)
 class EveDB:
     def __init__(self):
         self.eve_db = mysql.connector.connect(user='root', password='root', host='localhost', database="evetest")
