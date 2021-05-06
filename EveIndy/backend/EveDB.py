@@ -30,7 +30,7 @@ class EveDB:
         return data
 
     def get_reactions(self, item_id):
-        query = f"SELECT r.typeName AS input_name, l.materialTypeID AS input_id, l.quantity " \
+        query = f"SELECT r.typeName AS mat_name, r.groupID AS group_id, l.materialTypeID AS mat_id, l.quantity AS mat_quantity " \
                 f"FROM industryactivitymaterials l INNER JOIN invtypes r ON l.materialTypeID = r.typeID " \
                 f"WHERE l.activityID = 11 AND l.typeID = {item_id}"
 

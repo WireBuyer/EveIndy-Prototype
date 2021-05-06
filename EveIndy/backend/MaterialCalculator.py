@@ -72,9 +72,9 @@ class MaterialCalculator:
                 self.mats[i.name] = MatInfo(i.mat_id, i.name, i.group_id, adj_mats)
 
 
-def me_mod(x=1):
-    structure_rig = 4.2
-    structure_role = 1
+def me_mod(x=1, rig_bonus=4.2, role_bonus=1.0):
+    structure_rig = rig_bonus
+    structure_role = role_bonus
     return (1 - (structure_rig / 100.0)) * (1 - (structure_role / 100.0)) * (1 - (x / 100.0))
 
 

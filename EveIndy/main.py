@@ -18,12 +18,12 @@ from Reactions import Reactions
 #               f'{i.mat_quantity:<10,d}')
 
 
-import time
-start = time.process_time()
-import tracemalloc
-tracemalloc.start()
+# import time
+# start = time.process_time()
+# import tracemalloc
+# tracemalloc.start()
 mat_calc = MaterialCalculator()
-#
+
 # # add chosen items to the list
 bp = Blueprint(name="Paladin Blueprint", runs=1, copies=1, me=me_mod(4), te=0)
 mat_calc.add_bp(bp)
@@ -33,9 +33,6 @@ mat_calc.add_bp(bp)
 # mat_calc.add_bp(bp)
 # mat_calc.remove_bp(2)
 
-# mat_calc.print_mats()
-
-# pprint(mat_calc.mats)
 
 t2comps = []
 comp_filter = [334]
@@ -50,34 +47,13 @@ for mat in mat_calc.mats.values():
 reactions = Reactions()
 reactions.set_comps(t2comps)
 reactions.change_comps(11543, 2)
-reactions.fill_adv()
-# reactions.after()
+reactions.set_adv()
+# reactions.change_adv(46207, 2)
 # pprint(reactions.comps)
-# reactions.fill_processed
 # reactions.change_processed_moon(46208, 2)
-# reactions.print_comps()
-
-
-
-
-
-
-
-
 
 # pprint(reactions.processed_moon_mat[46208])
 # t2decomp.change_adv_moon(11539, 7)
-
-
-
-
-
-
-
-
-
-
-
 
 
 # print(f"time taken: {time.process_time() - start}")
